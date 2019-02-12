@@ -49,8 +49,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Giraffe\IdleState.cs" />
+    <Compile Include="Giraffe\Scripts\States\Move.cs" />
+    <Compile Include="StateMachine.cs" />
+    <Compile Include="IState.cs" />
     <Compile Include="Giraffe\Scripts\Giraffe.cs" />
+    <Compile Include="Giraffe\Scripts\States\Idle.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

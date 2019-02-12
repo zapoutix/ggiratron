@@ -1,23 +1,28 @@
 using Godot;
 using System;
+using System.Collections.Generic;
 
 public class Giraffe : AnimatedSprite
 {
-    // Member variables here, example:
-    // private int a = 2;
-    // private string b = "textvar";
-
+    StateMachine<Giraffe> _stateMachine;
+    
+    [Export]
+    public int SPEED = 200;
     public override void _Ready()
     {
-        // Called every time the node is added to the scene.
-        // Initialization here
-        
+        var idleState = new Idle();
+        var moveState = new Move();
+        _stateMachine = new StateMachine<Giraffe>(new List<IState<Giraffe>>
+        {
+            idleState,
+            moveState
+        }, idleState, this);
+
+        _stateMachine.Start();
+        GD.Print("Hello from giraffe");
     }
 
-//    public override void _Process(float delta)
-//    {
-//        // Called every frame. Delta is time since last frame.
-//        // Update game logic here.
-//        
-//    }
+   public override void _Process(float delta) => _stateMachine.Update(delta);
+
+   public override void _UnhandledInput(InputEvent @event) => _stateMachine.HandleInput(@event);
 }
